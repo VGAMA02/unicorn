@@ -1,0 +1,23 @@
+<!-- Barra lateral -->
+  <ion-split-pane contentId="main-content" >
+    <ion-menu contentId="main-content" type="overlay" swipeGesture="false">
+      <ion-content >
+        <ion-list lines="full"id="inbox-list">
+          <ion-list-header>Unicorn</ion-list-header>
+          <ion-menu-toggle auto-hide="false" *ngFor="let pagina of paginas; let i = index" >
+            <ion-item  (click)="changeSelectedIndex(i)" routerDirection="root" [routerLink]="[pagina.url]" lines="none"
+              detail="false" class="item-list" [class.selected]="selectedIndex === i"> 
+              <ion-icon slot="start" [ios]="pagina.icono + '-outline'" [md]="pagina.icono + '-sharp'"></ion-icon>
+              <ion-label>{{ pagina.titulo }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+         <!--  <ion-item>
+            <ion-button (click)="signOut()">
+              cerrar sesion
+            </ion-button> 
+          </ion-item> -->
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content" main></ion-router-outlet>
+  </ion-split-pane>

@@ -1,0 +1,55 @@
+<!-- Agendar ingreso o e form-->
+
+<ion-header>
+  <ion-toolbar class="allHeader">
+    <ion-buttons slot="start">
+      <ion-back-button ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Agregar Movimiento</ion-title>
+    <ion-buttons slot="end">
+      <ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+  <!--<ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
+--> 
+<ion-content>
+  <ion-card>
+
+    <ion-from [formGroup]="ScheduledForm">
+      <ion-item>
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-select  formControlName="idTypeInput" placeholder="elije uno" interface="popover">
+          <ion-select-option value=1>ingreso</ion-select-option>
+          <ion-select-option value=2>gasto</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">descripcion</ion-label>
+        <ion-textarea formControlName="description" placeholder="Descripcion..." clearOnEdit="false"auto-grow="true"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Cantidad</ion-label>
+        <ion-input formControlName="amount" type="number" min="1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">frecuencia</ion-label>
+        <ion-select formControlName="idType" placeholder="elije uno" interface="popover">
+          <ion-select-option value=1>Unico</ion-select-option>
+          <ion-select-option value=2>Semanal</ion-select-option>
+          <ion-select-option value=3>Quincenal</ion-select-option>
+          <ion-select-option value=4>Mensual</ion-select-option>
+          <ion-select-option value=5>Anual</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-card>
+          <ion-datetime formControlName="startDate" presentation="date"  value="2012-12-15" ></ion-datetime>
+        </ion-card>
+      </ion-item> 
+      <ion-button expand="block" shape="round" size="medium"  (click)="crearScheduled()">Agregar Movimiento</ion-button>
+    </ion-from>
+
+  </ion-card>
+</ion-content>

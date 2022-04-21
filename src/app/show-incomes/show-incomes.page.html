@@ -1,0 +1,41 @@
+<ion-header >
+  <ion-toolbar class="allHeader">
+    <ion-title >Ingresos Obtenidos</ion-title>
+    <ion-buttons slot="start">
+    <ion-fab-button [routerLink]="['/menu/home']" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <!-- 
+  <ion-card-content class = "borderSelection">
+
+    <p  class="alineacionIzquierda" >Tipo de movimientos: </p>
+    <p class="alineacionDerecha">
+      <ion-select (ionChange)="actualizarTipoMov($event)" (click)="actualizarTipoMov($event)"   placeholder='Todos'>
+        <ion-select-option value=1>Todos</ion-select-option>
+        <ion-select-option value=2>Ingresos</ion-select-option>
+        <ion-select-option value=3>Gastos</ion-select-option>
+      </ion-select>
+    </p>
+    </ion-card-content>
+  -->
+    <ion-card *ngFor="let income of incomes">  
+      <ion-card-header>
+          <p>{{income.description}}</p>
+      
+      <ion-card-content>
+          <p>startDate: {{income.startDate | date:"dd/MM/y"}} </p>
+          <p>amount: {{income.amount}} </p>
+          <p *ngIf="income.idType == 1">frecuencia: Unico</p>
+          <p *ngIf="income.idType == 2">frecuencia: Semanal</p>
+          <p *ngIf="income.idType == 3">frecuencia: Quincenal</p>
+          <p *ngIf="income.idType == 4">frecuencia: Mensual</p>
+          <p *ngIf="income.idType == 5">frecuencia: Anual</p>
+          <!-- <p>frecuencia: {{income.idType}} </p> -->
+      </ion-card-content>
+    </ion-card-header>
+    </ion-card>
+
+</ion-content>

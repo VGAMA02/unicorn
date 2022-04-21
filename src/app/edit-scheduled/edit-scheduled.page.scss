@@ -1,0 +1,32 @@
+.Header{
+    background-color: #294A7A;
+    color: #f3f3f3;
+    width: auto;
+}
+.returnButon{
+    text-align: center; 
+    color: aliceblue;
+    background-color: #294A7A;
+}
+.alineacionIzquierda{
+    float: left;
+    width: 60%;
+} 
+.alineacionDerecha{
+    width: 40%;
+    float: right;
+}
+.borderSelection{
+    border: 2px solid black;
+    flex: auto;
+    font-size: medium;
+}
+.letraAdaptable{
+    font-size: 15px;
+    text-align: center;
+    align-items: center;
+    font-size: calc(1em + 1vw) !important;
+}
+ion-select{
+    margin-top: -10px;
+}

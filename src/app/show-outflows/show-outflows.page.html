@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar  class="allHeader">
+    <ion-title>Gastos Realizados</ion-title>
+    <ion-buttons slot="start"> 
+    <ion-fab-button [routerLink]="['/menu/home']" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <!--
+  <ion-item>
+    <ion-button expand="block" shape="round" size="medium" (click)="regresar()">Regresar</ion-button>
+  </ion-item>
+ -->
+
+    <ion-card *ngFor="let outflow of outflows">  
+      <ion-card-header>
+          <p>{{outflow.description}}</p>
+      </ion-card-header>
+      <ion-card-content>
+          <p>startDate: {{outflow.startDate | date:"dd/MM/y"}} </p>
+          <p>amount: {{outflow.amount}} </p>
+          <p *ngIf="outflow.idType == 1">frecuencia: Unico</p>
+          <p *ngIf="outflow.idType == 2">frecuencia: Semanal</p>
+          <p *ngIf="outflow.idType == 3">frecuencia: Quincenal</p>
+          <p *ngIf="outflow.idType == 4">frecuencia: Mensual</p>
+          <p *ngIf="outflow.idType == 5">frecuencia: Anual</p>
+          <!-- <p>frecuencia: {{outflow.idType}} </p> -->
+      </ion-card-content>
+    </ion-card>
+</ion-content>

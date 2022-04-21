@@ -1,0 +1,72 @@
+<!-- Ingresos -->
+<ion-header>
+  <ion-toolbar class="allHeader">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Agendar Ingreso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="cards">
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col style="text-align: center;">Ingresos de los ultimos</ion-col>
+          <ion-col style="text-align: center;">7 dias</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>12/02/2022</ion-col>
+          <ion-col>Salario</ion-col>
+          <ion-col>500</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>11/02/2022</ion-col>
+          <ion-col>consultoria</ion-col>
+          <ion-col>200</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>10/02/2022</ion-col>
+          <ion-col>propinas</ion-col>
+          <ion-col>100</ion-col>
+        </ion-row>
+      </ion-grid>
+          <ion-button expand="block" fill="clear">
+          <ion-icon name="chevron-down-outline" ></ion-icon>
+        </ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="cards">
+    <ion-grid>
+      <ion-row>
+        <ion-col style="text-align: center;">total de ingresos</ion-col>
+        <ion-col style="text-align: center;" >800$</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style="text-align: center;">grafico</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <img src="https://pymstatic.com/9284/conversions/histograma-default.jpg" alt="">
+    </ion-card-content>
+    
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="success" style="text-align: center;"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-fab-button>
+      <ion-fab-button [routerLink]="['/scheduled']" color="primary" style="text-align: center;"><ion-icon name="book-outline"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

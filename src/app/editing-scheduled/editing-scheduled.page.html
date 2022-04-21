@@ -1,0 +1,61 @@
+<!-- Agendar ingreso o e form-->
+
+<ion-header>
+  <ion-toolbar class="allHeader">
+    <ion-buttons slot="start">
+      <ion-fab-button (click)="regresar()" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
+    </ion-buttons>
+    <ion-title>Editar Movimiento</ion-title>
+    <ion-buttons slot="end">
+      <ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+  <!--<ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
+--> 
+<ion-content>
+  <ion-card>
+    <ion-from [formGroup]="editScheduledForm">
+
+      <ion-item>
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-select  formControlName="idTypeInput" placeholder="elije uno" interface="popover" *ngIf="idTypeInput == 1" placeholder="Ingreso">
+          <ion-select-option value=1>ingreso</ion-select-option>
+          <ion-select-option value=2>gasto</ion-select-option>
+        </ion-select>
+        <ion-select  formControlName="idTypeInput" placeholder="elije uno" interface="popover" *ngIf="idTypeInput == 2" placeholder="Gasto">
+          <ion-select-option value=1>ingreso</ion-select-option>
+          <ion-select-option value=2>gasto</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item >
+        <ion-label position="stacked">descripcion</ion-label>
+        <ion-textarea class="espaciado"  formControlName="description" clearOnEdit="false" auto-grow="true" placeholder="{{description}}"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Cantidad</ion-label>
+        <ion-input formControlName="amount" type="number" min="1" placeholder="{{amount}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">frecuencia</ion-label>
+        <ion-select formControlName="idType" placeholder="elije uno" interface="popover">
+          <ion-select-option value=1>Unico</ion-select-option>
+          <ion-select-option value=2>Semanal</ion-select-option>
+          <ion-select-option value=3>Quincenal</ion-select-option>
+          <ion-select-option value=4>Mensual</ion-select-option>
+          <ion-select-option value=5>Anual</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-card>
+          <ion-datetime formControlName="startDate" presentation="date" value="{{startDate}}" ></ion-datetime>
+        </ion-card>
+      </ion-item> 
+      <ion-button expand="block" shape="round" size="medium"  (click)="modificarScheduled()">Editar Movimiento</ion-button>
+
+
+    </ion-from>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,130 @@
+<!-- Menu normal -->
+<ion-header >
+  <ion-toolbar class="allHeader">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title >Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="cards">
+    <ion-card-header>
+      <ion-grid>
+        <ion-row class="rowBoton">
+          <ion-col>Saldo Actual</ion-col>
+          <ion-col class="selectIonIzquierda">
+            <p class="selectIonIzquierda">Saldo proximo:</p>
+         </ion-col>
+           <!-- boton selector -->
+         <ion-select (ionChange)="actualizarDays($event)" class="selectIon"  placeholder={{searchDays}}>
+          <ion-select-option value=7>7</ion-select-option>
+          <ion-select-option value=14>14</ion-select-option>
+          <ion-select-option value=21>21</ion-select-option>
+          <ion-select-option value=30>30</ion-select-option>
+          <ion-select-option value=60>60</ion-select-option>
+          <ion-select-option value=90>90</ion-select-option>
+        </ion-select>
+
+        </ion-row>
+        <ion-row class="rowBoton">
+          <ion-col class="SaldoIzquierda">{{saldoActual}}$</ion-col>
+          <ion-col class="SaldoDerecha">{{saldoFuturo}}$</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card class="cards">
+    <ion-card-header>
+      <ion-grid>
+        <ion-row class="rowBoton">
+          <p class="labelIzquierdaBoton">Ingresos proximos:</p>
+          <!-- boton selector -->
+          <p  class="selectIon2" >
+          <ion-select (ionChange)="actualizarDaysIncomes($event)" placeholder={{searchDaysIncomes}}>
+            <ion-select-option value=7>7</ion-select-option>
+            <ion-select-option value=14>14</ion-select-option>
+            <ion-select-option value=21>21</ion-select-option>
+            <ion-select-option value=30>30</ion-select-option>
+            <ion-select-option value=60>60</ion-select-option>
+            <ion-select-option value=90>90</ion-select-option>
+          </ion-select>
+        </p>
+        </ion-row>
+
+        <ion-row class="rowBoton">
+          <ion-col></ion-col>
+          <ion-col class="totalFont">Total</ion-col>
+          <ion-col class="totalFont">700$</ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+
+        <ion-grid>
+          <ion-row> 
+            <p class="labelIzquierdaBoton">Ver los ingresos anteriores</p>
+              <ion-button class="labelDerechaBoton" id="desplegarIngreso"  [routerLink]="['/show-incomes']" expand="block" fill="clear">
+                <ion-icon class="icon-card" name="card"> </ion-icon> 
+              </ion-button>
+          </ion-row>
+        </ion-grid>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="cards">
+    <ion-card-header>
+      <ion-grid>
+        <ion-row class="rowBoton">
+          <p class="labelIzquierdaBoton">Gastos Proximos</p>
+          <p  class="selectIon2" >
+           <!-- boton selector -->
+           <ion-select (ionChange)="actualizarDaysOutflows($event)" class="selectIon"  placeholder={{searchDaysOutflows}}>
+             <ion-select-option value=7>7</ion-select-option>
+             <ion-select-option value=14>14</ion-select-option>
+             <ion-select-option value=21>21</ion-select-option>
+             <ion-select-option value=30>30</ion-select-option>
+             <ion-select-option value=60>60</ion-select-option>
+             <ion-select-option value=90>90</ion-select-option>
+           </ion-select>
+          </p>
+        </ion-row>
+        <ion-row>
+          <ion-col class="rowBoton"></ion-col>
+          <ion-col  class="totalFont">Total</ion-col>
+          <ion-col  class="totalFont">700$</ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row> 
+          <p class="labelIzquierdaBoton">Ver los gastos anteriores</p>
+          <ion-button class="labelDerechaBoton"  id="mostrarGastos" expand="block"  (click)="irOutflows()"  fill="clear">
+            <ion-icon class="icon-card" name="card"></ion-icon> 
+          </ion-button>
+        </ion-row>
+      </ion-grid>
+
+
+
+    </ion-card-header>
+    <ion-card-content>
+    </ion-card-content>
+  </ion-card>
+
+
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          <ion-fab-list side="top">
+            <ion-fab-button [routerLink]="['/edit-scheduled']" color="success" style="text-align: center;"><ion-icon name="construct"></ion-icon></ion-fab-button>
+            <ion-fab-button [routerLink]="['/scheduled']" color="primary" style="text-align: center;"><ion-icon name="book-outline"></ion-icon></ion-fab-button>
+          </ion-fab-list>
+        </ion-fab>
+</ion-content>

@@ -1,0 +1,26 @@
+.Header{
+    background-color: #294A7A;
+    font-size: medium;
+    color: #f3f3f3;
+    width: auto;
+}
+.returnButon{
+    text-align: center; 
+    color: aliceblue;
+    background-color: #294A7A;
+}
+.alineacionIzquierda{
+    display: inline-block;
+    width: 50%;
+} 
+.alineacionDerecha{
+    display: inline-block;
+    width: 50%;
+    //padding-bottom: 30px !important;
+}
+
+.borderSelection{
+    border: 2px solid black;
+    //display: block;
+    margin-bottom: auto;
+}

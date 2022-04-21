@@ -1,0 +1,58 @@
+.cards{
+    align-items: center;
+    text-align: center;
+    background: #f3f3f3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.icon-card{
+    font-size: 45px;
+}
+.rowBoton{
+    align-items: center;
+    ion-button{
+        margin-left: -50px;
+        color: rgba(31, 134, 56, 0.467);
+    }
+}
+.selectIon{
+    background: none;
+    color: #000;
+    float: right;
+    position: sticky;
+}
+.selectIon2{
+    float: right;
+    position: sticky;
+    width: auto;
+    padding-top: 15px;
+}
+.selectIonIzquierda{
+    float: left;
+    position: sticky;
+}
+.SaldoIzquierda{
+    float: left;
+    width: 50%;
+    padding-left: 5%;
+    position: sticky;
+}
+.SaldoDerecha{
+    float: left;
+    width: 50%;
+    padding-right: 28%;
+    position: sticky;
+}
+.totalFont{
+    font-size: 20px;
+}
+.labelIzquierdaBoton{
+    float: left;
+    width: 75%;
+    padding-top: 15px;
+    font-size: 15px;
+}
+.labelDerechaBoton{
+    float: right;
+    width: 20%;
+    padding-top: 25px;
+}

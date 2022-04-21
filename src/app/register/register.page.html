@@ -1,0 +1,49 @@
+<!-- Logearse a una persona -->
+
+<ion-header>
+  <ion-toolbar class="allHeader">
+    <ion-title >Registrarse</ion-title>
+    <!-- <ion-router-outlet  [routerlink]="['/register']"> Registrarse </ion-router-outlet> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="RegisterForm">
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input formControlName="firstName" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Apellido</ion-label>
+        <ion-input formControlName="lastName" required> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">fecha</ion-label>
+        <!--  <ion-input formControlName="birthDate" type="date"></ion-input> -->
+        <ion-datetime formControlName="birthDate" min="1920-03-14" max="2025-12-09" required ></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked"  >Email</ion-label>
+        <ion-input formControlName="email" type="email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input formControlName="password" type="password" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Confirme Contraseña</ion-label>
+        <ion-input formControlName="password2" type="password" required></ion-input>
+      </ion-item>
+      <ion-button expand="block" shape="round" size="medium"  (click)="registro()" >Registrarse</ion-button>
+      <ion-button   slot="end" expand="block" shape="round" size="medium"  [routerlink]="['/register']"  (click)="irLogin()"  >Ir a Login</ion-button>
+    </form>  
+    
+      <ion-img class="imgFondo"  src="../../assets/Miselanios/Unicorn-2.png"></ion-img>
+   
+  
+  
+
+</ion-content>

@@ -1,0 +1,31 @@
+.cards{
+    text-align: center;
+    background: #f3f3f3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.icon-card{
+    font-size: 45px;
+}
+.title{
+    --background: #294A7A !important;
+    color: #f3f3f3;
+}
+.ButtonR{
+    display: block;
+    align-content: space-between !important;
+    text-align: center; 
+}
+.cardCenter{
+    margin-top: 20px;
+    align-items: center;   
+}
+ion-button{
+    margin-top: 20px;
+    display: block;
+}
+.imgFondo{
+    
+    display:block;
+    margin:auto;
+    width: 50%;
+}

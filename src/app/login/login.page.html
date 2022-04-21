@@ -1,0 +1,32 @@
+<!-- Logearse a una persona -->
+
+<ion-header>
+  <ion-toolbar class="allHeader">
+    <ion-title >Iniciar Sesion</ion-title>
+    <!-- <ion-router-outlet  [routerlink]="['/register']"> Registrarse </ion-router-outlet> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="loginForm">
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+      <ion-button expand="block" shape="round" size="medium"  (click)="login()" >Iniciar Sesion</ion-button>
+      <ion-button   slot="end" expand="block" shape="round" size="medium"  [routerlink]="['/register']" (click)="irRegistro()" >Ir a registro</ion-button>
+    </form>  
+    
+   
+  
+    <ion-img class="imgFondo" src="../../assets/Miselanios/Unicorn-2.png"></ion-img>
+ 
+   
+  
+  
+
+</ion-content>
