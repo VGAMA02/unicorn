@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonRefresher, NavController } from '@ionic/angular';
 import { EditScheduledService } from './edit-scheduled.service';
 import { AlertController }   from '@ionic/angular';
+import { Events } from '../events';
 @Component({
   selector: 'app-edit-scheduled',
   templateUrl: './edit-scheduled.page.html',
@@ -13,13 +14,15 @@ export class EditScheduledPage implements OnInit {
   schedules: Array<any>
   constructor(private navCtrl: NavController,
     private _EditScheduledService: EditScheduledService,
-    private alertController: AlertController) {
+    private alertController: AlertController,
+    private _Events: Events) {
       this.getSchedules();
     }
   ngOnInit() {
     this.getSchedules();
   }
   regresar(){
+    this._Events.homeChangeSubject.next();
     this.navCtrl.navigateForward('menu/home');
   }
   actualizarTipoMov($event){

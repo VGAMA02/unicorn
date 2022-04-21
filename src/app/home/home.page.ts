@@ -1,8 +1,7 @@
 import { Component , OnInit} from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { HomeService } from './home.service';
-import { ViewWillEnter } from '@ionic/angular';
-
+import { Events } from '../events';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -11,26 +10,38 @@ import { ViewWillEnter } from '@ionic/angular';
 })
 export class HomePage{
 
-  public searchDays: number = 21;
-  public searchDaysIncomes: number = 21;
-  public searchDaysOutflows: number = 21;
-  public saldoActual: number;
-  public saldoFuturo: number;
-  public nextIncomes: number;
-  public nextOutflows: number;
+  searchDays: number = 7;
+  searchDaysIncomes: number = 21;
+  searchDaysOutflows: number = 21;
+  saldoActual: number;
+  saldoFuturo: number;
+  nextIncomes: number;
+  nextOutflows: number;
 
-  constructor(private navCtrl: NavController, private _HomeService: HomeService
-  ){}
-  
-  ngOnInit() {
-    localStorage.setItem("ShowIncomeDays",'7');
+  constructor(private navCtrl: NavController, private _HomeService: HomeService, public _Events:Events
+  ){
+    
     //this.searchDays = 7
-    localStorage.setItem("searchDays",this.searchDays.toString());
-    localStorage.setItem("searchDaysIncomes",this.searchDays.toString());
-    localStorage.setItem("searchDaysOutflows",this.searchDays.toString());
+    //localStorage.setItem("searchDays",this.searchDays.toString());
+    //localStorage.setItem("searchDaysIncomes",this.searchDays.toString());
+    //localStorage.setItem("searchDaysOutflows",this.searchDays.toString());
     //alert(parseInt(localStorage.getItem("searchDays")) );
     this.getSaldoActual();
     this.getSaldoFuturo();
+    this._Events.homeChange.subscribe(()=>{
+      console.log('Rerfrescando');
+      this.getSaldoActual();
+      this.getSaldoFuturo();
+    });
+
+
+  }
+  
+  ngOnInit() {
+    localStorage.setItem("ShowIncomeDays",'7');
+  }
+  irEdit(){
+    this.navCtrl.navigateForward('/edit-scheduled');
   }
   irIncomes(){
     console.log("moviendonos a incomes");

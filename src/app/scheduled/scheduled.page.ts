@@ -7,6 +7,7 @@ import { NavController } from '@ionic/angular';
 import { ScheduledService } from './scheduled.service';
 import { DatePipe } from '@angular/common';
 import { AlertController }   from '@ionic/angular';
+import { Events } from '../events';
 @Component({
   selector: 'app-scheduled',
   templateUrl: './scheduled.page.html',
@@ -20,7 +21,8 @@ export class ScheduledPage implements OnInit {
     private _ScheduledService: ScheduledService,
     public navCtrl: NavController,
     private datePipe: DatePipe,
-    public alertController: AlertController ) 
+    public alertController: AlertController,
+    public _Events: Events ) 
     {
       this.ScheduledForm = this.formBuilder.group({ 
         'idTypeInput': new FormControl('',Validators.required),
@@ -79,6 +81,7 @@ export class ScheduledPage implements OnInit {
         this._ScheduledService.addScheduled(form).subscribe((res)=>{
           if(res.status === true){
           this.ScheduledForm.reset();
+          this._Events.homeChangeSubject.next();
           this.navCtrl.navigateForward('menu/home');
           }
         },(error) =>{
