@@ -17,23 +17,24 @@ export class EditScheduledPage implements OnInit {
     private alertController: AlertController,
     private _Events: Events) {
       this.getSchedules();
+      this._Events.scheduledChange.subscribe(()=>{
+        console.log('Cargando movimientos programados modo RECARGA');
+        this.getSchedules();
+      });
     }
   ngOnInit() {
     this.getSchedules();
   }
   regresar(){
     this._Events.homeChangeSubject.next();
-    this.navCtrl.navigateForward('menu/home');
+    this.navCtrl.pop().then(() => {
+    });;
   }
   actualizarTipoMov($event){
     this.option = $event.target.value;
     this.getSchedules();
   }
   getSchedules(){
-    //var myDate = new Date();
-    //var myDateString = myDate.toISOString().slice(0, 10);
-    //myDate.toString();
-    //this._ShowIncomesService.getIncomes(parseInt(localStorage.getItem("idUser")) , myDateString  ,parseInt(localStorage.getItem("searchDays")) ).subscribe((res)=>{
     this._EditScheduledService.getSchedules(parseInt(localStorage.getItem("idUser")), this.option ).subscribe((res)=>{
      if(res.status === true){
        console.log(res);
@@ -62,7 +63,6 @@ export class EditScheduledPage implements OnInit {
       if(res.status === true){
         console.log("Scheduled Cambiado-Eliminado");
         console.log(res.status);
-        //console.log(this.schedules);
         this.getSchedules();
       }
     },(error) =>{

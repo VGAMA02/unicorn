@@ -7,9 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class HomeService {
-
     apiEndpoint: string;
-
     constructor(private _http: HttpClient, private config: Config) {
         this.apiEndpoint = this.config.API_MAIN;
     }
@@ -24,5 +22,13 @@ export class HomeService {
     getSaldoFuturo(id,days): Observable<any> {
         let data = {id,days}
         return this._http.post(this.apiEndpoint +'scheduled/getSaldoFuturo',data);
+    }
+    getIncomesFuturos(id,days): Observable<any> {
+        let data = {id,days}
+        return this._http.post(this.apiEndpoint +'scheduled/getIngresosFuturos',data);
+    }
+    getEgresosFuturos(id,days): Observable<any> {
+        let data = {id,days}
+        return this._http.post(this.apiEndpoint +'scheduled/getEgresosFuturos',data);
     }
 }

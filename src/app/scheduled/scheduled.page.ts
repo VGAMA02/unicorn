@@ -38,6 +38,12 @@ export class ScheduledPage implements OnInit {
    }
 
   ngOnInit() {
+    
+  }
+  regresar(){
+    this._Events.homeChangeSubject.next();
+    this.navCtrl.pop().then(() => {
+    });;
   }
   crearScheduled(){
      this.ScheduledForm.controls['status'].setValue(1);
@@ -56,14 +62,20 @@ export class ScheduledPage implements OnInit {
       this.ScheduledForm.controls['startDate'].setValue(ActualDate);
       form = this.ScheduledForm.value;
      }
-     //LLENAR LOS DATOS DE LA FECHA FINAL
-     if(form.idType == 1 && form.startDate <= this.datePipe.transform(Date(), 'yyyy-MM-dd')){
+     else{
+      this.ScheduledForm.controls['startDate'].setValue(this.datePipe.transform(form.startDate, 'yyyy-MM-dd'));
+      form = this.ScheduledForm.value;
+     }
+     //LLENAR LOS DATOS DE LA FECHA FINAL 
+     console.log(form.startDate);
+     console.log(this.datePipe.transform(Date(), 'yyyy-MM-dd'));
+     if(form.idType == 1 && form.startDate <= this.datePipe.transform(Date(), 'yyyy-MM-dd')  ){
         let LastDate = Date();
         LastDate = this.datePipe.transform(LastDate, 'yyyy-MM-dd');
         console.log("llenando los datos de endDate");
         console.log(LastDate);
         this.ScheduledForm.controls['endDate'].setValue(LastDate);
-        this.ScheduledForm.controls['lastUpdate'].setValue(LastDate);
+        //this.ScheduledForm.controls['lastUpdate'].setValue(LastDate);
         form = this.ScheduledForm.value;
      }
      else{
@@ -71,10 +83,13 @@ export class ScheduledPage implements OnInit {
       this.ScheduledForm.controls['lastUpdate'].setValue(null);
       form = this.ScheduledForm.value;
      }
- 
-     if(form.idTypeInput == "" || form.idType == "" || form.amount == 0)
+     if(form.idTypeInput == "" || form.idType == "" || form.amount == 0  || form.description == '')
      {
+       if(form.amount < 0){
+         this.presentAlert('Error','La cantidad insertada no puede ser negativa, marque el movimiento como gasto.');
+       }
        console.log("LLena la wea pibe!");
+       this.presentAlert('Error','Por favor verifique que los datos no esten vacios.');
      }else{
         console.log(form);
         //aqui iria el if para hacer el agendado y el agreagado normal
@@ -101,6 +116,16 @@ export class ScheduledPage implements OnInit {
   }
 
   async presentAlert(header,msg) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: msg,
+      buttons: ['OK']
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+  async errorAlert(header,msg) {
     const alert = await this.alertController.create({
       header: header,
       message: msg,

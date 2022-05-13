@@ -4,6 +4,46 @@
     border: 1px  black;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.icon-card{
-    font-size: 45px;
+.cardsGrafs{
+    text-align: center;
+    background: #f3f3f3;
+    height: 320px;
+    border: 1px  black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.Grafs{
+    height: 300px;
+    width: 300px;
+}
+.Header{
+    background-color: #294A7A;
+    color: #f3f3f3;
+    width: auto;
+}
+.returnButon{
+    text-align: center; 
+    color: aliceblue;
+    background-color: #294A7A;
+}
+.alineacionIzquierda{
+    float: left;
+    width: 60%;
+} 
+.alineacionDerecha{
+    width: 40%;
+    float: right;
+}
+.borderSelection{
+    border: 2px solid black;
+    flex: auto;
+    font-size: medium;
+}
+.letraAdaptable{
+
+    text-align: center;
+    align-items: center;
+    font-size: calc(0.8em + 0.8vw) !important;
+}
+ion-select{
+    margin-top: -10px;
 }

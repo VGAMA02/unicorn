@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShowIncomesService } from './show-incomes.service';
 import { NavController } from '@ionic/angular';
+import { Events } from '../events';
 @Component({
   selector: 'app-show-incomes',
   templateUrl: './show-incomes.page.html',
@@ -9,7 +10,8 @@ import { NavController } from '@ionic/angular';
 })
 export class ShowIncomesPage implements OnInit {
   incomes: Array<any>
-  constructor(private navCtrl: NavController, private _ShowIncomesService: ShowIncomesService
+  constructor(private navCtrl: NavController, private _ShowIncomesService: ShowIncomesService,
+    public _Events:Events
     ) {
      }
   ngOnInit() {
@@ -19,9 +21,8 @@ export class ShowIncomesPage implements OnInit {
   }
   exa(){
     console.log('FFProbando');
-    //this.navCtrl.navigateForward('menu/home');
+    this._Events.homeChangeSubject.next();
     this.navCtrl.navigateForward('menu/home');
-    //this.navCtrl.navigateRoot('menu/home');
   }
   actualizarTipoMov($event){
     

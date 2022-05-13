@@ -7,7 +7,7 @@ import { EditingScheduledService } from './editing-scheduled.service';
 import { NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { AlertController }   from '@ionic/angular';
-import { scheduled } from 'rxjs';
+import { Events } from '../events';
 
 @Component({
   selector: 'app-editing-scheduled',
@@ -16,19 +16,20 @@ import { scheduled } from 'rxjs';
   providers: [EditingScheduledService,DatePipe]
 })
 export class EditingScheduledPage implements OnInit {
-  public idTypeInput: number;
-  public amount: number;
-  public description: string;
-  public idType: number;
-  public startDate: Date;
-  public endDate: Date;
-  
-  editScheduledForm: FormGroup
+  idTypeInput: number;
+  amount: number;
+  description: string;
+  idType: number;
+  startDate: Date;
+  endDate: Date;
+  editScheduledForm: FormGroup;
+
   constructor(public formBuilder: FormBuilder,
     public navCtrl: NavController,
     public datePipe: DatePipe,
     public alertController: AlertController,
-    public _EditingScheduledService: EditingScheduledService
+    public _EditingScheduledService: EditingScheduledService,
+    public _Events:Events
    ) 
     {
       this.editScheduledForm = this.formBuilder.group({
@@ -43,13 +44,13 @@ export class EditingScheduledPage implements OnInit {
         'lastUpdate': new FormControl('',Validators.required),
       });
    }
-
   ngOnInit() {
+
     this.getScheduled()
   }
-  
   regresar(){
     //this.navCtrl.navigateForward('edit-scheduled');
+    this._Events.scheduledChangeSubject.next();
     this.navCtrl.pop().then(() => {
     });;
   }
@@ -76,7 +77,6 @@ export class EditingScheduledPage implements OnInit {
      console.log(error);
    }).unsubscribe
  }
- 
  modificarScheduled(){
   let idUser = parseInt(localStorage.getItem("idUser"));
   let idSheduledInput = parseInt(localStorage.getItem("idSheduledInput"));
@@ -86,7 +86,6 @@ export class EditingScheduledPage implements OnInit {
   //asignar form
   let form = this.editScheduledForm.value;
   //LLENAR LOS DATOS DE LA FECHA SI NO AGARRA
- 
   if(form.startDate == null || form.startDate == ''){
    let ActualDate = Date();
    ActualDate = this.datePipe.transform(ActualDate, 'yyyy-MM-dd');
@@ -137,11 +136,6 @@ export class EditingScheduledPage implements OnInit {
      })
   }
  }
-
-
-
-
-
  //////////////////////////////////////////////////////
   async presentAlert(header,msg) {
     const alert = await this.alertController.create({
@@ -153,7 +147,6 @@ export class EditingScheduledPage implements OnInit {
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
-
   async AdvertirAlert(header,msg) {
     const alert = await this.alertController.create({
       header: header,
@@ -162,6 +155,7 @@ export class EditingScheduledPage implements OnInit {
         text: 'Ok',
         handler: (value: any) => {
           console.log('Ok clicked');
+          this._Events.scheduledChangeSubject.next();
           this.navCtrl.navigateForward('/edit-scheduled');
         }
       }]

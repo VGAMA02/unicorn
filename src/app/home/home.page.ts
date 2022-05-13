@@ -9,34 +9,27 @@ import { Events } from '../events';
   providers:[HomeService]
 })
 export class HomePage{
-
   searchDays: number = 7;
-  searchDaysIncomes: number = 21;
-  searchDaysOutflows: number = 21;
+  searchDaysIncomes: number = 7;
+  searchDaysOutflows: number = 7;
   saldoActual: number;
   saldoFuturo: number;
   nextIncomes: number;
   nextOutflows: number;
-
   constructor(private navCtrl: NavController, private _HomeService: HomeService, public _Events:Events
   ){
-    
-    //this.searchDays = 7
-    //localStorage.setItem("searchDays",this.searchDays.toString());
-    //localStorage.setItem("searchDaysIncomes",this.searchDays.toString());
-    //localStorage.setItem("searchDaysOutflows",this.searchDays.toString());
-    //alert(parseInt(localStorage.getItem("searchDays")) );
     this.getSaldoActual();
     this.getSaldoFuturo();
+    this.getIncomesFuturos();
+    this.getEgresosFuturos();
     this._Events.homeChange.subscribe(()=>{
-      console.log('Rerfrescando');
+      //console.log('Rerfrescando');
       this.getSaldoActual();
       this.getSaldoFuturo();
+      this.getIncomesFuturos();
+      this.getEgresosFuturos();
     });
-
-
   }
-  
   ngOnInit() {
     localStorage.setItem("ShowIncomeDays",'7');
   }
@@ -56,44 +49,59 @@ export class HomePage{
       if(res.status === true){
         console.log(res);
         this.saldoActual = res.saldo
-        console.log("--------------------------------------------------------------------------------");
         console.log(this.saldoActual);
-      }
-       
+        console.log("\n------------------------------------\n");
+      } 
+    },(error) =>{
+      console.log(error);
+    }).unsubscribe; 
+  }
+  getSaldoFuturo(){
+    this._HomeService.getSaldoFuturo(parseInt(localStorage.getItem("idUser")),this.searchDays  ).subscribe((res)=>{
+      if(res.status === true){
+        console.log(res);
+        this.saldoFuturo = res.saldofururo
+        console.log("\n---------------------------\n");
+      } 
     },(error) =>{
       console.log(error);
     }).unsubscribe;
-
-    
   }
-  getSaldoFuturo(){
-    this._HomeService.getSaldoFuturo(parseInt(localStorage.getItem("idUser")),parseInt(localStorage.getItem("searchDays"))  ).subscribe((res)=>{
+  getIncomesFuturos(){
+    this._HomeService.getIncomesFuturos(parseInt(localStorage.getItem("idUser")),this.searchDaysIncomes).subscribe((res)=>{
       if(res.status === true){
         console.log(res);
-        this.saldoFuturo = res.saldo
-        console.log("--------------------------------------------------------------------------------");
-        console.log(this.saldoActual);
-      }
-       
+        this.nextIncomes = res.ingresosFuturos
+        console.log("\n----------------------\n");
+      } 
+    },(error) =>{
+      console.log(error);
+    }).unsubscribe;
+  }
+  getEgresosFuturos(){
+    this._HomeService.getEgresosFuturos(parseInt(localStorage.getItem("idUser")),this.searchDaysIncomes).subscribe((res)=>{
+      if(res.status === true){
+        console.log(res);
+        this.nextOutflows = res.egresosFuturos
+        console.log("\n----------------------\n");
+      } 
     },(error) =>{
       console.log(error);
     }).unsubscribe;
   }
   actualizarDays($event){
     this.searchDays = $event.target.value;
-    localStorage.setItem("searchDays",this.searchDays.toString());
     console.log("Cambiando seachDays");
     this.getSaldoFuturo();
   }
   actualizarDaysIncomes($event){
     this.searchDaysIncomes = $event.target.value;
-    localStorage.setItem("searchDaysIncomes",this.searchDaysIncomes.toString());
+    this.getIncomesFuturos();
     console.log("Cambiando seachDaysIncomes y actualizando datos");
-    
   }
   actualizarDaysOutflows($event){
     this.searchDaysOutflows = $event.target.value;
-    localStorage.setItem("searchDaysOutflows",this.searchDaysOutflows.toString());
     console.log("Cambiando seachDaysOutflows");
   }
+
 }

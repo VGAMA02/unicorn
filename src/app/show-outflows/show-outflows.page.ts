@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShowOutflowsService } from './show-outflows.service';
 import { NavController } from '@ionic/angular';
+import { Events } from '../events';
 @Component({
   selector: 'app-show-outflows',
   templateUrl: './show-outflows.page.html',
@@ -10,8 +11,10 @@ import { NavController } from '@ionic/angular';
 export class ShowOutflowsPage implements OnInit {
 
   outflows: Array<any>
-  constructor(private navCtrl: NavController, private _ShowOutflowsService: ShowOutflowsService
+  constructor(private navCtrl: NavController, private _ShowOutflowsService: ShowOutflowsService,
+    public _Events:Events
     ) {
+
      }
 
   ngOnInit() {
@@ -20,6 +23,7 @@ export class ShowOutflowsPage implements OnInit {
   }
   regresar(){
     console.log('FFProbando');
+    this._Events.homeChangeSubject.next();
     this.navCtrl.navigateForward('menu/home');
   }
    getOutflows(){

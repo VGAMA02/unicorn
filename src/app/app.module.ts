@@ -7,10 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { Config } from './config';
 import { Alerts } from './alerts';
 import { Events } from './events';
+import { NgxEchartsModule } from 'ngx-echarts';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,NgxEchartsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },Config,Alerts, Events],
   bootstrap: [AppComponent],
 })

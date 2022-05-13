@@ -11,44 +11,33 @@
 <ion-content>
   <ion-card class="cards">
     <ion-card-header>
-      <ion-grid>
-        <ion-row>
-          <ion-col style="text-align: center;">Ingresos de los ultimos</ion-col>
-          <ion-col style="text-align: center;">7 dias</ion-col>
-        </ion-row>
-      </ion-grid>
+     
     </ion-card-header>
+
     <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col>12/02/2022</ion-col>
-          <ion-col>Salario</ion-col>
-          <ion-col>500</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>11/02/2022</ion-col>
-          <ion-col>consultoria</ion-col>
-          <ion-col>200</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>10/02/2022</ion-col>
-          <ion-col>propinas</ion-col>
-          <ion-col>100</ion-col>
-        </ion-row>
-      </ion-grid>
-          <ion-button expand="block" fill="clear">
-          <ion-icon name="chevron-down-outline" ></ion-icon>
+      <p class="letraAdaptable"> Ultimos ingresos obtenidos</p>
+      <br>
+      <!--<p *ngFor="let income of incomes" *ngif="incomes" class="letraAdaptable">{{income.startDate | date:"dd/MM/y"}} | {{income.description}} | {{income.amount}}$</p> -->
+      <ng-container *ngIf="incomes">
+        <p *ngFor="let income of incomes" class="letraAdaptable">{{income.startDate | date:"dd/MM/y"}} | {{income.description}} | {{income.amount}}$</p> 
+      </ng-container>
+      <ng-container *ngIf="!incomes">
+        <p class="letraAdaptable">No hay ingresos actualmente.</p> 
+      </ng-container>
+        
+      <!--
+      <ion-button expand="block" fill="clear">
+        <ion-icon name="chevron-down-outline" ></ion-icon>
         </ion-button>
+      -->
+
     </ion-card-content>
+    <ion-button (click)="generarGraficoBoton()" class="alineacionizquierda">
+      <ion-icon name="refresh"></ion-icon>
+    </ion-button>
   </ion-card>
-  <ion-card class="cards">
-    <ion-grid>
-      <ion-row>
-        <ion-col style="text-align: center;">total de ingresos</ion-col>
-        <ion-col style="text-align: center;" >800$</ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
+
+  <!-- 
   <ion-card>
     <ion-card-header>
       <ion-card-title style="text-align: center;">grafico</ion-card-title>
@@ -59,14 +48,34 @@
     </ion-card-content>
     
   </ion-card>
+-->
+<ion-card class="cardsGrafs">  <!-- Primer grafico -->
+   <!--  <br> -->
+  <canvas width=380  height=300 id="myChart" >  </canvas>
+</ion-card>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button color="success" style="text-align: center;"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-fab-button>
-      <ion-fab-button [routerLink]="['/scheduled']" color="primary" style="text-align: center;"><ion-icon name="book-outline"></ion-icon></ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+
+<ion-card class="cardsGrafs">  
+  <canvas width=400  height=300 id="myChart2">  </canvas>
+</ion-card>
+
+
+<ion-card class="cards">  
+  <p> Promedio de Ingresos del ultimo mes</p>
+  <p>${{averageIncomes}}</p>
+</ion-card>
+
+
+<!--
+<ion-card class="cards"> 
+<div echarts [options]="chartOption" class="demo-chart"></div>
+</ion-card>
+-->
+
+<!--
+<ion-card class="cards"> 
+<div echarts [options]="chartsOption" (chartInit)="onChartInit($event)"></div>
+</ion-card>
+-->
+
 </ion-content>
