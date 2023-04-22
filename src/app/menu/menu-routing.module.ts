@@ -20,6 +20,10 @@ const routes: Routes = [
         path: 'outflow',
         loadChildren: () => import('../outflow/outflow.module').then( m => m.OutflowPageModule)
       },
+      {
+        path: 'analisis-inc-out-sch',
+        loadChildren: () => import('../analisis-inc-out-sch/analisis-inc-out-sch.module').then( m => m.AnalisisIncOutSchPageModule)
+      },
     ]
   }
 ];

@@ -29,3 +29,9 @@ ion-button{
     margin:auto;
     width: 50%;
 }
+input:invalid {
+    background-color: #cf5656;
+    border: none;
+    outline: 2px solid red;
+    border-radius: 5px;
+}

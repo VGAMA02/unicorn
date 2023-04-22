@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { OutflowPageRoutingModule } from './outflow-routing.module';
-import { OutflowPage } from './outflow.page';
+import { RecomendacionesPageRoutingModule } from './recomendaciones-routing.module';
+import { RecomendacionesPage } from './recomendaciones.page';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; //parece que este modulo es importante para que el service funcione
 @NgModule({
@@ -11,10 +11,10 @@ import { HttpClientModule } from '@angular/common/http'; //parece que este modul
     CommonModule,
     FormsModule,
     IonicModule,
-    OutflowPageRoutingModule,
-    RouterModule,
-    HttpClientModule
+    RecomendacionesPageRoutingModule,
+    HttpClientModule,
+    RouterModule
   ],
-  declarations: [OutflowPage]
+  declarations: [RecomendacionesPage]
 })
-export class OutflowPageModule {}
+export class RecomendacionesPageModule {}

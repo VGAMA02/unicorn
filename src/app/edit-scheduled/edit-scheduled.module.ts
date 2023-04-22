@@ -14,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http'; //parece que este modul
     EditScheduledPageRoutingModule,
     HttpClientModule,
     RouterModule,
-    
   ],
   declarations: [EditScheduledPage]
 })

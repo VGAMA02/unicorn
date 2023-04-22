@@ -2,8 +2,13 @@
   <ion-toolbar class="allHeader">
     <ion-title >Ingresos Obtenidos</ion-title>
     <ion-buttons slot="start">
-    <ion-fab-button [routerLink]="['/menu/home']" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="exa()" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
     </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +26,7 @@
     </p>
     </ion-card-content>
   -->
-    <ion-card *ngFor="let income of incomes">  
+    <ion-card *ngFor="let income of incomes" class="classCard">  
       <ion-card-header>
           <p>{{income.description}}</p>
       

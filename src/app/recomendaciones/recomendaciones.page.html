@@ -1,0 +1,85 @@
+<ion-header >
+  <ion-toolbar class="allHeader">
+   
+    <ion-buttons slot="start">
+      <ion-fab-button (click)="regresar()" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
+    </ion-buttons>
+
+    <ion-title >Sugerencias</ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="cards" *ngIf="averageBalance">
+      <p class="cardTitle"> ¿Como van tus finanzas? </p>
+      <p> {{advicesFinanzas}} </p> 
+  </ion-card>
+
+  <ion-card class="cards" *ngIf="!averageBalance">
+    <p class="cardTitle"> No hay Data </p>
+</ion-card>
+
+  <ion-card class="cards">
+    <p  class="cardTitle"> ¿Como mejorar tus ingresos? </p>
+
+
+    <div *ngIf="schedulesWork?.length">
+      <p> Considerando sus ingresos hemos detectado que tiene un trabajo de nomina, si quiere aumentar ingresos podria pensar en
+        trabajar dias festivos en los que la paga es el triple o bien aumentar algunas horas si le es posible.
+      </p>
+    </div>
+
+  <!-- <p> Analizando los gastos de la persona ver si trabaja en nomina, viaja lejos, etc y darle algunas recomendaciones como trabajar en dias festivos 
+    o utilizar mas transporte publico si es que usa mucho servicios de taxi por ejemplo </p> -->
+  </ion-card>
+
+  <ion-card class="cards">
+
+    <p class="cardTitle"> En que puedes ahorrar </p>
+
+    <!--  &lt;  significa < por los errores que se pueden dar al poner este signo   -->
+    <div *ngIf="(schedulesDiversionLow?.length && averageFutureBalance &lt; 20)">
+      <p> Considera tus menores gastos de ocio:</p>
+      <p  *ngFor="let element of schedulesDiversionLow">  
+             - {{element.description}}
+      </p>
+    </div> 
+
+    <div *ngIf="(schedulesDiversion?.length && averageFutureBalance > 20)">
+      <p> Considera estos gastos de ocio:</p>
+      <p  *ngFor="let element of schedulesDiversion">  
+             - {{element.description}}
+      </p>
+    </div> 
+
+    <div *ngIf="schedulesTransport?.length">
+      <p class="cardTitle"> Ultimamente uso servicios de transporte privados
+      considere utilizar mas los servicios de 
+      transporte publico:</p>
+      <p  *ngFor="let element of schedulesTransport">  
+             Encontramos :   {{element.description}}
+      </p>
+    </div> 
+
+    <!-- <p> usando el mismo analisis de peligro decirle al usuario conforme a sus gastos en que puede ahorrar. </p> -->
+  </ion-card>
+
+  <!-- <ion-card *ngFor="averageFutureBalance">  -->
+  <ion-card *ngIf="averageFutureBalance &lt; 21" class="cards">  
+      <p class="cardTitle"> ¡CUIDADO! </p>
+      <p class="cardText"> {{advices}} </p>
+
+      <div *ngIf="schedulesDiversion">
+        <p  *ngFor="let element of schedulesDiversion">  
+               - {{element.description}}
+        </p>
+      </div> 
+  </ion-card>
+
+
+</ion-content>

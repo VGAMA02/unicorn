@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ShowOutflowsService } from './show-outflows.service';
 import { NavController } from '@ionic/angular';
+import { Events } from '../events';
+import { AlertController }   from '@ionic/angular';
 @Component({
   selector: 'app-show-outflows',
   templateUrl: './show-outflows.page.html',
@@ -10,8 +12,10 @@ import { NavController } from '@ionic/angular';
 export class ShowOutflowsPage implements OnInit {
 
   outflows: Array<any>
-  constructor(private navCtrl: NavController, private _ShowOutflowsService: ShowOutflowsService
+  constructor(private navCtrl: NavController, private _ShowOutflowsService: ShowOutflowsService,
+    public _Events:Events, private alertController: AlertController
     ) {
+
      }
 
   ngOnInit() {
@@ -20,6 +24,7 @@ export class ShowOutflowsPage implements OnInit {
   }
   regresar(){
     console.log('FFProbando');
+    this._Events.homeChangeSubject.next();
     this.navCtrl.navigateForward('menu/home');
   }
    getOutflows(){
@@ -38,5 +43,19 @@ export class ShowOutflowsPage implements OnInit {
         console.log(error);
       }) 
     }
-
+    mostrarInformacion(){
+      let mensaje = 'En este apartado usted podra observar los egresos que ya han sido realizados OJO no aquellos que han sido registrado a futuro si no los que ya han sido procesados (aquellos que cuentan para su saldo actual)';
+      this.presentAlert('Informacion',mensaje);
+    }
+    //Basica de alerta
+    async presentAlert(header,msg) {
+      const alert = await this.alertController.create({
+        header: header,
+        message: msg,
+        buttons: ['OK']
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    }
 }

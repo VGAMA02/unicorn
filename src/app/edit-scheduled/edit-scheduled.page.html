@@ -1,29 +1,32 @@
 <ion-header >
   <ion-toolbar class="allHeader"> 
+
     <ion-buttons slot="start">
-      <ion-fab-button [routerLink]="['/menu/home']" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
+      <ion-fab-button (click)="regresar()" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
     </ion-buttons>
+
     <ion-title class = "letraAdaptable">Editar movimientos</ion-title>
     <ion-buttons slot="end">
       <ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
     </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content>
-  <ion-card-content class = "borderSelection">
-  <p  class="alineacionIzquierda" >Tipo de movimientos: </p>
-    <ion-select (ionChange)="actualizarTipoMov($event)" (click)="actualizarTipoMov($event)" class="alineacionDerecha"  placeholder='Todos'>
-      <ion-select-option value=1>Todos</ion-select-option>
-      <ion-select-option value=2>Ingresos</ion-select-option>
-      <ion-select-option value=3>Gastos</ion-select-option>
-    </ion-select>
+
+  <ion-card-content class = "borderSelectionBarra">
+    <p  class="alineacionIzquierda" >Tipo de movimientos: </p>
+    <span  class="alineacionDerecha">
+      <ion-select (ionChange)="actualizarTipoMov($event)" (click)="actualizarTipoMov($event)"  placeholder='Todos'>
+        <ion-select-option value=1>Todos</ion-select-option>
+        <ion-select-option value=2>Ingresos</ion-select-option>
+        <ion-select-option value=3>Gastos</ion-select-option>
+      </ion-select>
+    </span>
   </ion-card-content>
 
-
- <ion-card *ngFor="let scheduled of schedules">  
+ <ion-card *ngFor="let scheduled of schedules" class = "borderSelection">  
     <ion-card-header>
         <p>{{scheduled.description}}</p>
     </ion-card-header>

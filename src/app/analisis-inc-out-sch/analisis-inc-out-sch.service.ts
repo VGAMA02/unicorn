@@ -6,23 +6,21 @@ import { HttpClient } from '@angular/common/http';
 
 
 @Injectable()
-export class HomeService {
+export class AnalisisIncOutSchService {
     apiEndpoint: string;
     constructor(private _http: HttpClient, private config: Config) {
         this.apiEndpoint = this.config.API_MAIN;
     }
-    getIncomes(id,startDate,days): Observable<any> {
-        let data = {id,startDate,days}
-        return this._http.post(this.apiEndpoint +'scheduled/getSchedules',data);
+    //funciones para traer los datos de ingresos y egresos reales.
+    getOutflowsByIdAndDateS(id,startDate,days): Observable<any>{
+        let data = {id,startDate,days};
+        return this._http.post(this.apiEndpoint +'outflow/getOutflowsAmountDate',data);
     }
-    getSaldoActual(id): Observable<any> {
-        let data = {id}
-        return this._http.post(this.apiEndpoint +'scheduled/getSaldoActual',data);
+    getIncomesByIdAndDateS(id,startDate,days): Observable<any>{
+        let data = {id,startDate,days};
+        return this._http.post(this.apiEndpoint +'income/getIncomesAmountDate',data);
     }
-    getSaldoFuturo(id,days): Observable<any> {
-        let data = {id,days}
-        return this._http.post(this.apiEndpoint +'scheduled/getSaldoFuturo',data);
-    }
+    /////////////Funciones para traer los schedules futuros
     getIncomesFuturos(id,days): Observable<any> {
         let data = {id,days}
         return this._http.post(this.apiEndpoint +'scheduled/getIngresosFuturos',data);

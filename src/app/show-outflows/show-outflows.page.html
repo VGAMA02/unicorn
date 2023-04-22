@@ -2,8 +2,13 @@
   <ion-toolbar  class="allHeader">
     <ion-title>Gastos Realizados</ion-title>
     <ion-buttons slot="start"> 
-    <ion-fab-button [routerLink]="['/menu/home']" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
+    <ion-fab-button (click)="regresar()" class="returnButon" size="small" color="#294A7A"><ion-icon name="arrow-back"></ion-icon></ion-fab-button>
     </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +20,7 @@
   </ion-item>
  -->
 
-    <ion-card *ngFor="let outflow of outflows">  
+    <ion-card *ngFor="let outflow of outflows" class="classCard">  
       <ion-card-header>
           <p>{{outflow.description}}</p>
       </ion-card-header>
@@ -30,4 +35,7 @@
           <!-- <p>frecuencia: {{outflow.idType}} </p> -->
       </ion-card-content>
     </ion-card>
+
+    <p>  </p>
+    
 </ion-content>
