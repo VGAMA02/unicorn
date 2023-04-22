@@ -46,6 +46,14 @@ const routes: Routes = [
     path: 'editing-scheduled',
     loadChildren: () => import('./editing-scheduled/editing-scheduled.module').then( m => m.EditingScheduledPageModule)
   },
+  {
+    path: 'analisis-inc-out-sch',
+    loadChildren: () => import('./analisis-inc-out-sch/analisis-inc-out-sch.module').then( m => m.AnalisisIncOutSchPageModule)
+  },
+  {
+    path: 'recomendaciones',
+    loadChildren: () => import('./recomendaciones/recomendaciones.module').then( m => m.RecomendacionesPageModule)
+  },
 
 
 

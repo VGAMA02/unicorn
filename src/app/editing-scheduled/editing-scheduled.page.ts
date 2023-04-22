@@ -118,9 +118,11 @@ export class EditingScheduledPage implements OnInit {
   console.log("amount:" + form.amount);
   console.log("description:" + form.description);
   console.log("idSheduledInput:" + form.idSheduledInput);
-  if(form.idTypeInput == "" || form.idType == "" || form.amount == 0)
+  if(form.idTypeInput == "" || form.description == "" || form.idType == "" || form.amount <= 0)
   {
+    this.AdvertirAlert('Error', 'No dejes ningun campo vacio y recuerda que la cantidad debe ser mayor a 0.');
     console.log("LLena la wea pibe!");
+  
   }else{
      console.log(form);
      //aqui iria el if para hacer el agendado y el agreagado normal
@@ -130,6 +132,9 @@ export class EditingScheduledPage implements OnInit {
           //this.editScheduledForm.reset();
           //this.navCtrl.navigateForward('/edit-scheduled');
           this.AdvertirAlert('Movimiento Modificado', 'El movimiento ha sido modificado exitosamente.');
+          this._Events.scheduledChangeSubject.next();
+          this.navCtrl.pop().then(() => {
+          });;
        }
      },(error) =>{
        console.log(error);

@@ -9,8 +9,16 @@ export class OutflowService {
     constructor(private _http: HttpClient, private config: Config) {
         this.apiEndpoint = this.config.API_MAIN;
     }
-    getOurflowsLimiter(id,limiter): Observable<any> {
+    getOutflowsLimiter(id,limiter): Observable<any> {
         let data = {id,limiter}
         return this._http.post(this.apiEndpoint +'scheduled/getOutflowsLimiter',data);
+    }
+    getBiggerOutflowsInLastDaysS(id,limiter,days): Observable<any>{
+        let data = {id,limiter,days};
+        return this._http.post(this.apiEndpoint +'outflow/getBiggerOutflowsInLastDays',data);
+    }
+    getOutflowsByIdAndDateS(id,startDate,days): Observable<any>{
+        let data = {id,startDate,days};
+        return this._http.post(this.apiEndpoint +'outflow/getOutlowsDate',data);
     }
 }

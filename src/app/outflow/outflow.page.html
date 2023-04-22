@@ -4,7 +4,18 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title >Gastos</ion-title>
+    <ion-title >Analisis de Gastos</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="generarGraficoBoton()" color="light">
+        <ion-icon name="refresh"></ion-icon>
+      </ion-button>
+
+      <ion-buttons slot="end">
+        <ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
+      </ion-buttons>
+
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -14,20 +25,33 @@
     <ion-card-header>
 
     </ion-card-header>
-
     <p class="letraAdaptable"> Ultimos Gastos Realizados</p>
       <br>
       <!--<p *ngFor="let income of incomes" *ngif="incomes" class="letraAdaptable">{{income.startDate | date:"dd/MM/y"}} | {{income.description}} | {{income.amount}}$</p> -->
-      <ng-container *ngIf="outflows">
+      <ng-container *ngIf="outflows?.length">
         <p *ngFor="let outflow of outflows" class="letraAdaptable">{{outflow.startDate | date:"dd/MM/y"}} | {{outflow.description}} | {{outflow.amount}}$</p> 
       </ng-container>
-      <ng-container *ngIf="!outflows">
+      <ng-container *ngIf="!outflows?.length">
         <p class="letraAdaptable">No hay Gastos actualmente.</p> 
       </ng-container>
+      <!--
         <ion-button expand="block" fill="clear">
         <ion-icon name="chevron-down-outline" ></ion-icon>
         </ion-button>
+      -->
   </ion-card>
 
-  
+  <ion-card class="cardsGrafs" *ngIf="biggerOutflows?.length">  <!-- Primer grafico -->
+    <canvas width=380  height=300 id="biggestOutflowsChart" >  </canvas>
+  </ion-card>
+
+  <ion-card class="cardsGrafs" *ngIf="outflowsMonth?.length">  <!-- Segundo grafico -->
+    <canvas width=380  height=300 id="OutflowsChart" >  </canvas>
+  </ion-card>
+
+  <ion-card class="cards" *ngIf="averageOutflows">  
+    <p> Promedio de dinero por Gasto del ultimo mes</p>
+    <p>${{averageOutflows}}</p>
+  </ion-card>
+
 </ion-content>

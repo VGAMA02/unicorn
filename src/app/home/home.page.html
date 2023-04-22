@@ -66,7 +66,9 @@
           <ion-row> 
             <p class="labelIzquierdaBoton">Ver los ingresos anteriores</p>
               <ion-button class="labelDerechaBoton" id="desplegarIngreso"  [routerLink]="['/show-incomes']" expand="block" fill="clear">
+                <span class="span.button-inner">
                 <ion-icon class="icon-card" name="card"> </ion-icon> 
+               </span>
               </ion-button>
           </ion-row>
         </ion-grid>
@@ -105,7 +107,9 @@
         <ion-row> 
           <p class="labelIzquierdaBoton">Ver los gastos anteriores</p>
           <ion-button class="labelDerechaBoton"  id="mostrarGastos" expand="block"  (click)="irOutflows()"  fill="clear">
-            <ion-icon class="icon-card" name="card"></ion-icon> 
+            <span class="span.button-inner">
+              <ion-icon class="icon-card" name="card"></ion-icon> 
+            </span>
           </ion-button>
         </ion-row>
       </ion-grid>

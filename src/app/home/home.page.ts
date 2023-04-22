@@ -60,7 +60,7 @@ export class HomePage{
     this._HomeService.getSaldoFuturo(parseInt(localStorage.getItem("idUser")),this.searchDays  ).subscribe((res)=>{
       if(res.status === true){
         console.log(res);
-        this.saldoFuturo = res.saldofururo
+        this.saldoFuturo = res.saldofuturo
         console.log("\n---------------------------\n");
       } 
     },(error) =>{
@@ -79,7 +79,7 @@ export class HomePage{
     }).unsubscribe;
   }
   getEgresosFuturos(){
-    this._HomeService.getEgresosFuturos(parseInt(localStorage.getItem("idUser")),this.searchDaysIncomes).subscribe((res)=>{
+    this._HomeService.getEgresosFuturos(parseInt(localStorage.getItem("idUser")),this.searchDaysOutflows).subscribe((res)=>{
       if(res.status === true){
         console.log(res);
         this.nextOutflows = res.egresosFuturos
@@ -101,6 +101,7 @@ export class HomePage{
   }
   actualizarDaysOutflows($event){
     this.searchDaysOutflows = $event.target.value;
+    this.getEgresosFuturos();
     console.log("Cambiando seachDaysOutflows");
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ShowIncomesService } from './show-incomes.service';
 import { NavController } from '@ionic/angular';
 import { Events } from '../events';
+import { AlertController }   from '@ionic/angular';
 @Component({
   selector: 'app-show-incomes',
   templateUrl: './show-incomes.page.html',
@@ -11,7 +12,7 @@ import { Events } from '../events';
 export class ShowIncomesPage implements OnInit {
   incomes: Array<any>
   constructor(private navCtrl: NavController, private _ShowIncomesService: ShowIncomesService,
-    public _Events:Events
+    public _Events:Events, private alertController: AlertController
     ) {
      }
   ngOnInit() {
@@ -43,4 +44,21 @@ export class ShowIncomesPage implements OnInit {
         console.log(error);
       }).unsubscribe
     }
+
+    mostrarInformacion(){
+      let mensaje = 'En este apartado usted podra observar los ingresos que ya han sido realizados OJO no aquellos que han sido registrado a futuro si no los que ya han sido procesados (aquellos que cuentan para su saldo actual)';
+      this.presentAlert('Informacion',mensaje);
+    }
+    //Basica de alerta
+    async presentAlert(header,msg) {
+      const alert = await this.alertController.create({
+        header: header,
+        message: msg,
+        buttons: ['OK']
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    }
+
 }

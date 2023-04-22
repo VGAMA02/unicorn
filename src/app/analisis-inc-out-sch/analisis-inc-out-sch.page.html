@@ -1,0 +1,47 @@
+<ion-header  >
+  <ion-toolbar class="allHeader">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Analisis y predicciones</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-fab-button size= "small" background="#294A7A" color="#294A7A" (click)="generarGraficoBoton()"> <ion-icon name="refresh"></ion-icon> </ion-fab-button>
+
+      <ion-fab-button size= "small" color="#294A7A" (click)="mostrarInfo()"> <ion-icon name="information-circle"></ion-icon> </ion-fab-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="cardsGrafs" *ngIf="incomesMonthNum != 0 OR outflowsMonthNum != 0">  
+    <canvas width=400  height=300 id="ComparationChart">  </canvas>
+  </ion-card>
+
+  <ion-card class="cards" *ngIf="averageBalance" >  
+    <p> Porcentaje de Ingresos vs Egresos </p>
+    <p> {{averageBalance}}% </p>
+  </ion-card>
+
+  <ion-card class="cards" *ngIf="!averageBalance" >  
+    <p> No hay data para analizar </p>
+  </ion-card>
+
+  <ion-card class="cardsGrafs" *ngIf="incomesFutureMonthNum != 0 OR outflowsFutureMonthNum != 0">  
+    <canvas width=400  height=300 id="ComparationFutureChart">  </canvas>
+  </ion-card>
+
+  <ion-card class="cards" *ngIf="averageFutureBalance">  
+    <p> Porcentaje de Ingresos vs Egresos futuros del proximo mes </p>
+    <p> {{averageFutureBalance}}% </p>
+  </ion-card>
+  
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="irRecomendaciones()" color="primary" style="text-align: center;"><ion-icon name="heart-outline"></ion-icon></ion-fab-button>
+  </ion-fab>
+
+
+ 
+</ion-content>

@@ -25,6 +25,16 @@ export class MenuPage implements OnInit {
       url:'/menu/outflow',
       icon:'alert'
     },
+    {
+      titulo:'Analisis',
+      url:'/menu/analisis-inc-out-sch',
+      icon:'alert'
+    },
+    {
+      titulo:'Salir',
+      url:'/login',
+      icon:'alert'
+    },
   ];
   selectedIndex: number;
   constructor(/* private _MenuService: MenuService, */
@@ -35,6 +45,10 @@ export class MenuPage implements OnInit {
   ngOnInit() {
   }
   changeSelectedIndex(index: number) {
+      if(this.paginas[index].titulo == 'Salir'){
+        localStorage.setItem("idUser","");
+        console.log("Saliendo");
+      }
       this.selectedIndex = index
     }
 }

@@ -47,12 +47,16 @@
 }
 .labelIzquierdaBoton{
     float: left;
-    width: 75%;
+    width: 70%;
     padding-top: 15px;
     font-size: 15px;
 }
 .labelDerechaBoton{
     float: right;
-    width: 20%;
-    padding-top: 25px;
+    width: 15%;
+    padding-top: 15px;
+    height: 100%;
+}
+.span.button-inner{
+    height: 100%;
 }

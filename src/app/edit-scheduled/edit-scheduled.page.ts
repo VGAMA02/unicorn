@@ -48,7 +48,7 @@ export class EditScheduledPage implements OnInit {
  }
   mostrarInformacion(){
     let mensaje = 'En este apartado usted podra modificar o eliminar los movimientos programados. \n';
-    mensaje = mensaje + 'Tenga cuidado con elimar sus registros ya que se perderan para siempre. \n';
+    mensaje = mensaje + 'Tenga cuidado con eliminar sus registros ya que se perderan para siempre. \n';
     this.getSchedules();
     this.presentAlert('Informacion',mensaje);
     //alert('En este apartado usted podra registrar y programar movimientos. \n');

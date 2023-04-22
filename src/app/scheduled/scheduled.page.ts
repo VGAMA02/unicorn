@@ -69,27 +69,38 @@ export class ScheduledPage implements OnInit {
      //LLENAR LOS DATOS DE LA FECHA FINAL 
      console.log(form.startDate);
      console.log(this.datePipe.transform(Date(), 'yyyy-MM-dd'));
+     //AQUI INSERTAMOS LASTUPDATE O ENDATE
      if(form.idType == 1 && form.startDate <= this.datePipe.transform(Date(), 'yyyy-MM-dd')  ){
         let LastDate = Date();
         LastDate = this.datePipe.transform(LastDate, 'yyyy-MM-dd');
         console.log("llenando los datos de endDate");
         console.log(LastDate);
         this.ScheduledForm.controls['endDate'].setValue(LastDate);
+        this.ScheduledForm.controls['lastUpdate'].setValue(null);
         //this.ScheduledForm.controls['lastUpdate'].setValue(LastDate);
         form = this.ScheduledForm.value;
      }
-     else{
-      this.ScheduledForm.controls['endDate'].setValue(null);
-      this.ScheduledForm.controls['lastUpdate'].setValue(null);
-      form = this.ScheduledForm.value;
+     else if(form.idType == 3  || form.idType == 4){
+        this.ScheduledForm.controls['lastUpdate'].setValue(form.startDate);
+        this.ScheduledForm.controls['endDate'].setValue(null);
+        form = this.ScheduledForm.value;
      }
-     if(form.idTypeInput == "" || form.idType == "" || form.amount == 0  || form.description == '')
+     else{
+        this.ScheduledForm.controls['endDate'].setValue(null);
+        this.ScheduledForm.controls['lastUpdate'].setValue(null);
+        form = this.ScheduledForm.value;
+     }
+     if(form.idTypeInput == "" || form.idType == "" || form.amount <= 0  || form.description == '')
      {
-       if(form.amount < 0){
-         this.presentAlert('Error','La cantidad insertada no puede ser negativa, marque el movimiento como gasto.');
+       if(form.amount <= 0){
+         this.presentAlert('Error','La cantidad insertada no puede ser 0 o negativa, marque el movimiento como gasto.');
+       }
+       else{
+        this.presentAlert('Error','Por favor verifique que los datos no esten vacios.');
        }
        console.log("LLena la wea pibe!");
-       this.presentAlert('Error','Por favor verifique que los datos no esten vacios.');
+       
+       return;
      }else{
         console.log(form);
         //aqui iria el if para hacer el agendado y el agreagado normal
@@ -97,20 +108,92 @@ export class ScheduledPage implements OnInit {
           if(res.status === true){
           this.ScheduledForm.reset();
           this._Events.homeChangeSubject.next();
-          this.navCtrl.navigateForward('menu/home');
+
+
+          this.generarCategoria();
+
+
+          this.navCtrl.pop().then(() => {
+          });;
+          //this.navCtrl.navigateForward('menu/home');
           }
         },(error) =>{
           console.log(error);
         })
      }
      
+  }//crear scheduled
+
+
+  generarCategoria(){
+    ///DIVERSION
+    this._ScheduledService.AsingCategoryDiversion(localStorage.getItem("idUser")).subscribe((res)=>{
+      if(res.status === true){
+          console.log("\nScheduled Diversion actualizados");
+      }
+    },(error) =>{
+      console.log(error);
+    })
+    ///HIGIENE
+    this._ScheduledService.AsingCategoryHigiene(localStorage.getItem("idUser")).subscribe((res)=>{
+      if(res.status === true){
+          console.log("\nScheduled Higiene actualizados");
+      }
+    },(error) =>{
+      console.log(error);
+    })
+    ///Ropa
+    this._ScheduledService.AsingCategoryRopa(localStorage.getItem("idUser")).subscribe((res)=>{
+      if(res.status === true){
+          console.log("\nScheduled Ropa actualizados");
+      }
+    },(error) =>{
+      console.log(error);
+    })
+    ///Transporte
+    this._ScheduledService.AsingCategoryTransporte(localStorage.getItem("idUser")).subscribe((res)=>{
+      if(res.status === true){
+          console.log("\nScheduled Transporte actualizados");
+      }
+    },(error) =>{
+      console.log(error);
+    })
+    ///Casa
+    this._ScheduledService.AsingCategoryCasa(localStorage.getItem("idUser")).subscribe((res)=>{
+      if(res.status === true){
+          console.log("\nScheduled Casa actualizados");
+      }
+    },(error) =>{
+      console.log(error);
+    })
+    ///Cuentas y pagos
+    this._ScheduledService.AsingCategoryCuentasPagos(localStorage.getItem("idUser")).subscribe((res)=>{
+      if(res.status === true){
+          console.log("\nScheduled Cuentas y pagos actualizados");
+      }
+    },(error) =>{
+      console.log(error);
+    })
+    ///Alimentacion
+    this._ScheduledService.AsingCategoryAlimentacion(localStorage.getItem("idUser")).subscribe((res)=>{
+      if(res.status === true){
+          console.log("\nScheduled Alimentacion actualizados");
+      }
+    },(error) =>{
+      console.log(error);
+    })
+
   }
+
+
+
+
+
   mostrarInformacion(){
     let mensaje = 'En este apartado usted podra registrar y programar movimientos. \n decida si el moviemiento sera un ingreso un egreso, coloque una descripcion \n';
     mensaje = mensaje + 'La cantidad y la frecuencia; en este apartado usted podra elegir si el movimiento se ejecutara una sola vez o muchas. \n';
     mensaje = mensaje + 'el apartado mas importante es la fecha, si usted selecciona la fecha actual con un movimiento unico se generara el movimiento automaticamente \n';
     mensaje = mensaje + 'si selecciona otra fecha quedara registrado para ejecutarse en esta fecha.\n';
-    
     this.presentAlert('Informacion',mensaje);
     //alert('En este apartado usted podra registrar y programar movimientos. \n');
   }

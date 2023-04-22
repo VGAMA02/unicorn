@@ -1,21 +1,17 @@
 .cards{
+    align-items: center;
     text-align: center;
     background: #f3f3f3;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.icon-card{
-    font-size: 45px;
 }
 .cardsGrafs{
-    margin: auto;
-    //height: 320px;
-    //max-width: 320px + 100px;
     text-align: center;
-    align-self: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 90%;
-    border: 1px  black;
     background: #f3f3f3;
+    //height: 320px;
+    border: 1px  black;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.botonCabezera{
+    background: #1a4f80;
+    color: #000000;
 }

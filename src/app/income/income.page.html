@@ -4,7 +4,18 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Agendar Ingreso</ion-title>
+    <ion-title>Analisis de Ingresos</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="generarGraficoBoton()" color="light">
+        <ion-icon name="refresh"></ion-icon>
+      </ion-button>
+      <ion-buttons slot="end">
+        <ion-fab-button (click)="mostrarInformacion()" class="returnButon" size="small" color="#294A7A"><ion-icon name="information-circle"></ion-icon></ion-fab-button>
+      </ion-buttons>
+
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 
@@ -18,10 +29,10 @@
       <p class="letraAdaptable"> Ultimos ingresos obtenidos</p>
       <br>
       <!--<p *ngFor="let income of incomes" *ngif="incomes" class="letraAdaptable">{{income.startDate | date:"dd/MM/y"}} | {{income.description}} | {{income.amount}}$</p> -->
-      <ng-container *ngIf="incomes">
+      <ng-container *ngIf="incomes?.length">
         <p *ngFor="let income of incomes" class="letraAdaptable">{{income.startDate | date:"dd/MM/y"}} | {{income.description}} | {{income.amount}}$</p> 
       </ng-container>
-      <ng-container *ngIf="!incomes">
+      <ng-container *ngIf="!incomes?.length">
         <p class="letraAdaptable">No hay ingresos actualmente.</p> 
       </ng-container>
         
@@ -32,9 +43,7 @@
       -->
 
     </ion-card-content>
-    <ion-button (click)="generarGraficoBoton()" class="alineacionizquierda">
-      <ion-icon name="refresh"></ion-icon>
-    </ion-button>
+    
   </ion-card>
 
   <!-- 
@@ -49,19 +58,19 @@
     
   </ion-card>
 -->
-<ion-card class="cardsGrafs">  <!-- Primer grafico -->
+<ion-card class="cardsGrafs" *ngIf="BiggerIncomes?.length">  <!-- Primer grafico --> 
    <!--  <br> -->
-  <canvas width=380  height=300 id="myChart" >  </canvas>
+  <canvas  width=380  height=300 id="myChart" >  </canvas>
 </ion-card>
 
 
-<ion-card class="cardsGrafs">  
+<ion-card class="cardsGrafs" *ngIf="incomesMonth?.length">  
   <canvas width=400  height=300 id="myChart2">  </canvas>
 </ion-card>
 
 
-<ion-card class="cards">  
-  <p> Promedio de Ingresos del ultimo mes</p>
+<ion-card class="cards" *ngIf="averageIncomes">  
+  <p> Promedio de dinero por Ingreso del ultimo mes</p>
   <p>${{averageIncomes}}</p>
 </ion-card>
 

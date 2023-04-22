@@ -6,6 +6,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { color, EChartsOption } from 'echarts';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { DatePipe } from '@angular/common';
+import { AlertController }   from '@ionic/angular';
 @Component({
   selector: 'app-income',
   templateUrl: './income.page.html',
@@ -24,29 +25,33 @@ export class IncomePage implements OnInit {
   chartIncomesMonth: Chart;
   ref: ChangeDetectorRef;
   bar: Ng2GoogleChartsModule;
-  constructor(private _IncomeService:IncomeService, private datePipe: DatePipe,
+  diasBusqueda: number = 30;
+  constructor(private _IncomeService:IncomeService, private datePipe: DatePipe, private alertController: AlertController
     ) { 
-      this.getBiggerIncomesInLastMounth();
-      this.getIncomesLimiterPage();
+
     
     }
 
   ngOnInit() {
-      //this.ref.detectChanges();
-      //this.generateCharts();
-      //this.BiggerIncomesInLastMounth_Charts(this.BiggerIncomes);
+      this.getBiggerIncomesInLastMounth();
+      this.getIncomesLimiterPage();
+      this.AverageIncomes();
   }
-
-  
   ngAfterContentInit(){
-    //this.BiggerIncomesInLastMounth_Charts(this.BiggerIncomes);
-    //this.graficoDos();
-    //this.loadColumnChart(); 
-    this.AverageIncomes();
+    //this.AverageIncomes();
   }
   ngAfterViewInit(){
-    //this.BiggerIncomesInLastMounth_Charts(this.BiggerIncomes);
+    //this.getBiggerIncomesInLastMounth();
+    //this.getIncomesLimiterPage();
   }
+
+  ionViewWillEnter(){
+    console.log("\n\nActualizando Graficos");
+    this.getBiggerIncomesInLastMounth();
+    this.AverageIncomes();
+    //this.getIncomesLimiterPage();
+  }
+
   generarGraficoBoton(){
     //this.loadColumnChart();
     this.BiggerIncomesInLastMounth_Charts(this.BiggerIncomes);
@@ -56,59 +61,53 @@ export class IncomePage implements OnInit {
     this._IncomeService.getIncomesLimiter(parseInt(localStorage.getItem("idUser")),this.limiter).subscribe((res)=>{
       if(res.status === true){
         console.log(res);
-        this.incomes = res.incomes
+          this.incomes = res.incomes
         console.log("\n----------------------\n");
       } 
     },(error) =>{
       console.log(error);
     }).unsubscribe;
-
-    
   }
+
+
   getBiggerIncomesInLastMounth(){
-    this._IncomeService.getBiggerIncomesInLastDaysS(parseInt(localStorage.getItem("idUser")),this.limiter,60).subscribe((res)=>{
+    this._IncomeService.getBiggerIncomesInLastDaysS(parseInt(localStorage.getItem("idUser")),this.limiter,this.diasBusqueda).subscribe((res)=>{
       if(res.status === true){
         console.log(res);
         this.BiggerIncomes = res.incomes
+        console.log("\nBiggerIncomes:"+ this.BiggerIncomes  +  "\n");
         console.log("\n----------------------\n");
         this.BiggerIncomesInLastMounth_Charts(this.BiggerIncomes);
       } 
     },(error) =>{
       console.log(error);
     }).unsubscribe;
-
     //this.BiggerIncomesInLastMounth_Charts(this.BiggerIncomes);
   }
+
+
   BiggerIncomesInLastMounth_Charts(BiggerIncomes: Array<any>) { //los ultimos 3 incomes con mayor ingreso del mes.
     const ctx = document.getElementById("myChart");
-
     if(this.chartIncomes != undefined){
       this.chartIncomes.destroy();
     }
     this.chartIncomes = new Chart(ctx, {
       type: 'bar',
       data: {
-          labels: ['primero', 'segundo', 'tercero'],
+          labels: [],
           datasets: [{
-              label: ['primero', 'segundo', 'tercero'],
-              data: [ BiggerIncomes[0].amount , BiggerIncomes[1].amount, BiggerIncomes[2].amount ],
+              label: [],
+              data: [],
               //data: [ Math.floor(Math.random()*(240-20+1)+20) ,Math.floor(Math.random()*(240-20+1)+20),Math.floor(Math.random()*(240-20+1)+20) ],
               backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)'
               ],
               borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)'
               ],
               borderWidth: 1,
           }]
       },
       options: {
-        
-        responsive: false,
+        responsive: true,
         title: {
           display: true,
           text: 'Ingresos Mas significativos al mes'
@@ -118,16 +117,31 @@ export class IncomePage implements OnInit {
             ticks: {
                 beginAtZero: true
             }
-          }]
-            
+          }] 
         },
     } 
   });
+  let rojo = 0, verde = 0, azul = 0;
+  let color = 'rgba(255, 99, 132, 0.2)';
+  let borde = 'rgba(255, 99, 132, 1)';
+  BiggerIncomes.forEach(income => {
+    this.chartIncomes.data.datasets[0].data.push(income.amount);
+    this.chartIncomes.data.labels.push(income.description);
+    rojo = Math.floor(Math.random()*(240-20+1)+20);  
+    verde = Math.floor(Math.random()*(240-20+1)+20);
+    azul = Math.floor(Math.random()*(240-20+1)+20);
+    color = "rgba(" + rojo + "," + verde + "," + azul + ", 0.3)"; 
+    borde = "rgba(" + rojo + "," + verde + "," + azul + ", 1)"; 
+    this.chartIncomes.data.datasets[0].backgroundColor.push(color);
+    this.chartIncomes.data.datasets[0].borderColor.push(borde);
+  });
   this.chartIncomes.update();
   }
+
+
   AverageIncomes(){
     let ActualDate = this.datePipe.transform(Date(), 'yyyy-MM-dd');
-    this._IncomeService.getIncomesByIdAndDateS(parseInt(localStorage.getItem("idUser")),ActualDate,60).subscribe((res)=>{
+    this._IncomeService.getIncomesByIdAndDateS(parseInt(localStorage.getItem("idUser")),ActualDate,this.diasBusqueda).subscribe((res)=>{
       if(res.status === true){
         console.log(res);
         this.incomesMonth = res.incomes
@@ -147,9 +161,6 @@ export class IncomePage implements OnInit {
   }
   Incomes_Charts(incomesMonth: Array<any>) { //promedio de money ganada.
     const ctx = document.getElementById("myChart2");
-    //if(this.chartIncomes != undefined){
-    //  this.chartIncomes.destroy();
-    //}
     console.log('Grafico average: ' + this.incomesMonth);
     this.chartIncomesMonth = new Chart(ctx, {
       type: 'doughnut',
@@ -172,11 +183,11 @@ export class IncomePage implements OnInit {
           }]
       },
       options: {
+        responsive: true,
         scales: {
             y: {
                 beginAtZero: true
             }
-            
         },
         title: {
           display: true,
@@ -197,123 +208,27 @@ export class IncomePage implements OnInit {
     borde = "rgba(" + rojo + "," + verde + "," + azul + ", 1)"; 
     this.chartIncomesMonth.data.datasets[0].backgroundColor.push(color);
     this.chartIncomesMonth.data.datasets[0].borderColor.push(borde);
-
   });
   this.chartIncomesMonth.update();
   }
-  mostRepeatedIncomes_Charts(){ //Los ingresos que mas se repiten.
-    
+
+
+   //Basica de alerta
+   async presentAlert(header,msg) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: msg,
+      buttons: ['OK']
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
+  mostrarInformacion(){
+    let mensaje = 'En este apartado usted podra observar informacion acerca de sus ingresos ya procesados';
+    this.presentAlert('Informacion',mensaje);
   }
  
-  /*
-  loadColumnChart() {
-    console.log('grafico inicio: ' + this.bar);
-    
-    this.bar = {
-      chartType: 'ColumnChart',
-      dataTable: [
-        ['City', '2010 Population'],
-        ['New York City, NY', 8175000],
-        ['Los Angeles, CA', 3792000],
-        ['Chicago, IL', 2695000],
-        ['Houston, TX', 2099000],
-        ['Philadelphia, PA', 1526000]
-      ],
-      //opt_firstRowIsData: true,
-      options: {
-        title: 'Population of Largest U.S. Cities',
-        height: 600,
-        //chartArea: { height: '400' },
-        hAxis: {
-          title: 'Total Population',
-          minValue: 0
-        },
-        vAxis: {
-          title: 'City'
-        }
-      },
-
-    };
-    console.log(this.bar)
-}
-
-  chartOption: EChartsOption = {
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
-    yAxis: {
-      type: 'value'
-    },
-    tooltip: {
-      trigger: 'item',
-      showDelay: 0,
-      transitionDuration: 0.2,
-      formatter: function (params) {
-        return `<b>${params['name']}</b> : $ ${params['value']}`;
-      }
-    },
-    series: [{
-      data: [820, 932, 901, 934, 1290, 1430, 1550, 1200, 1650.1450, 1680, 1890, 2300],
-      type: 'line',
-      areaStyle: {}
-    }]
-  }
-  */
-
-  /*
-  chartsOption: EChartsOption = {
-    tooltip : {
-      trigger: 'item',
-      formatter: '{c}'
-    },
-    xAxis: {
-      type: 'category',
-      axisLine: {
-        show: false
-      },
-      axisTick: {
-        show: false
-      },
-      data: [50,60,80,40],
-      splitLine: {
-        show: false
-      }
-    },
-    yAxis: {
-      type: 'value',
-      axisTick: {
-        show: false
-      },
-      splitNumber: 4,
-      axisLine: {
-        show: false
-      }
-    },
-    grid: {
-      left: '10%',
-      right: '0%'
-    },
-    series: [
-      {
-        id: 'earnings',
-        name: 'Earnings',
-        type: 'line'
-      },
-      {
-        id: 'revenue',
-        name: 'Revenue',
-        type: 'line',
-        lineStyle: {
-          color: '#CCC',
-          type: 'dashed'
-        }
-      }
-    ]
-  };
-  */
-
-  
 
 }

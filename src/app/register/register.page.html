@@ -21,12 +21,11 @@
 
       <ion-item>
         <ion-label position="stacked">fecha</ion-label>
-        <!--  <ion-input formControlName="birthDate" type="date"></ion-input> -->
-        <ion-datetime formControlName="birthDate" min="1920-03-14" max="2025-12-09" required ></ion-datetime>
+        <ion-datetime formControlName="birthDate" presentation="date"  value="2012-12-15"  required ></ion-datetime>
       </ion-item>
-
+  <!--  <ion-input formControlName="birthDate" type="date"></ion-input> -->
       <ion-item>
-        <ion-label position="stacked"  >Email</ion-label>
+        <ion-label position="stacked" type="email" oninvalid="alert('a');"  >Email</ion-label>
         <ion-input formControlName="email" type="email" required></ion-input>
       </ion-item>
       <ion-item>
@@ -40,7 +39,6 @@
       <ion-button expand="block" shape="round" size="medium"  (click)="registro()" >Registrarse</ion-button>
       <ion-button   slot="end" expand="block" shape="round" size="medium"  [routerlink]="['/register']"  (click)="irLogin()"  >Ir a Login</ion-button>
     </form>  
-    
       <ion-img class="imgFondo"  src="../../assets/Miselanios/Unicorn-2.png"></ion-img>
    
   

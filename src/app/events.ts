@@ -9,8 +9,8 @@ export class Events {
     scheduledChangeSubject: Subject<any> = new Subject();
     scheduledChange: Observable<any> = this.scheduledChangeSubject.asObservable();
 
-
-
+    AnalisisChangeSubject: Subject<any> = new Subject();
+    AnalisisChange: Subject<any> = new Subject();
     constructor(){
 
     }
